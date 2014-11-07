@@ -14,9 +14,5 @@
     "jquery": "x.x.x"
   },
   "main": "search.js",
-<<<<<<< HEAD
   "version": "1.0.0-beta"
-=======
-  "version": "1.0.0"
->>>>>>> aaaf8fac215906c4e1c5a6b6d6226885d85be973
 }
