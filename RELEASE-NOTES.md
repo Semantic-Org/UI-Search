@@ -1,3 +1,22 @@
+### Version 1.7.0 - January 14, 2015
+
+- **Dropdown** - Search dropdown input can now have backgrounds. Fixes issues with autocompleted search dropdowns which have forced yellow "autocompleted" bg.
+- **Dropdown** - Fix issue with search selection not correctly matching when values are not strings
+- **Dropdown** - Fixes dropdown search input from filtering text values when input is inside menu, i.e "In-Menu Search"
+- **Dropdown** - Fix issue with search selection not correctly creating RegExp when select values are not strings **Thanks @alufers**
+
+### Version 1.6.0 - January 05, 2015
+
+- **Form** - ``ui search dropdown`` inside a form has incorrect focus style
+
+### Version 1.5.1 - January 01, 2015
+
+- **Search** - Fixed issue with local search returning all results due to improper regexp
+
+### Version 1.5.0 - December 30, 2014
+
+- **Dropdown/Search** - Fixed issues with ``ui search`` and ``ui search dropdown`` using ``RegExp test`` which [advances pointer on match](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test) causing results to display incorrectly
+
 ### Version 1.3.0 - December 17, 2014
 
 - **Dropdown** - Full text search now defaults to ``false``, meaning search terms will return only results beginning with letters
