@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 7ac4db9953e0d46bb8d5aeca6b2a699c710cbc60
 ### UI Changes
 
 - **Dropdown** - `search selection dropdown` will now close the menu when a `dropdown icon` is clicked
@@ -11,6 +15,11 @@
 - **Dropdown** - Dropdown no longer will not show menu when no `item` are present in menu. Dropdown will now only filter results for `ui search dropdown` #1632 **Thanks PSyton**.
 - **Search** - Search results no longer hide/show when user changes tab or page loses focus
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
+>>>>>>> 7ac4db9953e0d46bb8d5aeca6b2a699c710cbc60
 ### Version 1.7.0 - January 14, 2015
 
 - **Dropdown** - Search dropdown input can now have backgrounds. Fixes issues with autocompleted search dropdowns which have forced yellow "autocompleted" bg.
