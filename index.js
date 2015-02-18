@@ -119,12 +119,20 @@ module.exports = function(parameters) {
             }
           },
           blur: function(event) {
+<<<<<<< HEAD
             var
               pageLostFocus = (document.activeElement === this)
             ;
             if(!pageLostFocus && !module.resultsClicked) {
               module.cancel.query();
               module.remove.focus();
+=======
+            module.cancel();
+            $module
+              .removeClass(className.focus)
+            ;
+            if(!module.resultsClicked) {
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
               module.timer = setTimeout(module.hideResults, settings.hideDelay);
             }
           },
@@ -139,6 +147,7 @@ module.exports = function(parameters) {
               module.debug('Search result selected');
               var
                 $result = $(this),
+<<<<<<< HEAD
                 $title  = $result.find(selector.title).eq(0),
                 $link   = $result.find('a[href]').eq(0),
                 href    = $link.attr('href')   || false,
@@ -168,6 +177,32 @@ module.exports = function(parameters) {
                 }
                 else {
                   window.location.href = (href);
+=======
+                $title  = $result.find('.title'),
+                title   = $title.html()
+              ;
+              if(settings.onSelect == 'default' || settings.onSelect.call(this, event) == 'default') {
+                var
+                  $link  = $result.find('a[href]').eq(0),
+                  $title = $result.find(selector.title).eq(0),
+                  href   = $link.attr('href') || false,
+                  target = $link.attr('target') || false,
+                  name   = ($title.length > 0)
+                    ? $title.text()
+                    : false
+                ;
+                module.hideResults();
+                if(name) {
+                  $prompt.val(name);
+                }
+                if(href) {
+                  if(target == '_blank' || event.ctrlKey) {
+                    window.open(href);
+                  }
+                  else {
+                    window.location.href = (href);
+                  }
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
                 }
               }
             }
@@ -189,6 +224,12 @@ module.exports = function(parameters) {
               upArrow   : 38,
               downArrow : 40
             },
+<<<<<<< HEAD
+=======
+            activeClass  = className.active,
+            currentIndex = $result.index( $result.filter('.' + activeClass) ),
+            resultSize   = $result.length,
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
             newIndex
           ;
           // search shortcuts
@@ -198,11 +239,20 @@ module.exports = function(parameters) {
               .trigger('blur')
             ;
           }
+<<<<<<< HEAD
           if( module.is.visible() ) {
             if(keyCode == keys.enter) {
               module.verbose('Enter key pressed, selecting active result');
               if( $result.filter('.' + className.active).length > 0 ) {
                 module.event.result.click.call($result.filter('.' + className.active), event);
+=======
+          // result shortcuts
+          if($results.filter(':visible').length > 0) {
+            if(keyCode == keys.enter) {
+              module.verbose('Enter key pressed, selecting active result');
+              if( $result.filter('.' + activeClass).length > 0 ) {
+                module.event.result.click.call($result.filter('.' + activeClass), event);
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
                 event.preventDefault();
                 return false;
               }
@@ -249,12 +299,26 @@ module.exports = function(parameters) {
             if(keyCode == keys.enter) {
               module.verbose('Enter key pressed, executing query');
               module.query();
+<<<<<<< HEAD
               module.set.buttonPressed();
               $prompt.one('keyup', module.remove.buttonFocus);
+=======
+              $searchButton
+                .addClass(className.down)
+              ;
+              $prompt
+                .one('keyup', function(){
+                  $searchButton
+                    .removeClass(className.down)
+                  ;
+                })
+              ;
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
             }
           }
         },
 
+<<<<<<< HEAD
         setup: {
           api: function() {
             var
@@ -425,6 +489,41 @@ module.exports = function(parameters) {
             ;
           },
           object: function(searchTerm, source) {
+=======
+        query: function() {
+          var
+            searchTerm = $prompt.val(),
+            cachedHTML = module.read.cache(searchTerm)
+          ;
+          if(cachedHTML) {
+            module.debug('Reading result for ' + searchTerm + ' from cache');
+            module.addResults(cachedHTML);
+          }
+          else {
+            module.debug('Querying for ' + searchTerm);
+            if($.isPlainObject(settings.source) || $.isArray(settings.source)) {
+              module.search.local(searchTerm);
+            }
+            else if(settings.apiSettings) {
+              module.search.remote(searchTerm);
+            }
+            else if($.fn.api !== undefined && $.api.settings.api.search !== undefined) {
+              module.debug('Searching with default search API endpoint');
+              settings.apiSettings = {
+                action: 'search'
+              };
+              module.search.remote(searchTerm);
+            }
+            else {
+              module.error(error.source);
+            }
+            settings.onSearchQuery.call(element, searchTerm);
+          }
+        },
+
+        search: {
+          local: function(searchTerm) {
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
             var
               results         = [],
               fullTextResults = [],
@@ -460,6 +559,7 @@ module.exports = function(parameters) {
                 }
               });
             });
+<<<<<<< HEAD
             return $.merge(results, fullTextResults);
           }
         },
@@ -560,12 +660,114 @@ module.exports = function(parameters) {
           $results
             .html(html)
           ;
+=======
+            searchHTML = module.generateResults({
+              results: $.merge(results, fullTextResults)
+            });
+            $module
+              .removeClass(className.loading)
+            ;
+            module.write.cache(searchTerm, searchHTML);
+            module.addResults(searchHTML);
+          },
+          remote: function(searchTerm) {
+            var
+              apiSettings = {
+                stateContext : $module,
+                urlData      : {
+                  query: searchTerm
+                },
+                onSuccess : function(response) {
+                  searchHTML = module.generateResults(response);
+                  module.write.cache(searchTerm, searchHTML);
+                  module.addResults(searchHTML);
+                },
+                onFailure : module.error
+              },
+              searchHTML
+            ;
+            module.cancel();
+            module.debug('Executing search');
+            $.extend(true, apiSettings, settings.apiSettings);
+            $.api(apiSettings);
+          }
+
+        },
+
+        throttle: function() {
+          clearTimeout(module.timer);
+          if(module.has.minimumCharacters())  {
+            module.timer = setTimeout(module.query, settings.searchDelay);
+          }
+          else {
+            module.hideResults();
+          }
+        },
+
+        cancel: function() {
+          var
+            xhr = $module.data('xhr') || false
+          ;
+          if( xhr && xhr.state() != 'resolved') {
+            module.debug('Cancelling last search');
+            xhr.abort();
+          }
+        },
+
+        has: {
+          minimumCharacters: function() {
+            var
+              searchTerm    = $prompt.val(),
+              numCharacters = searchTerm.length
+            ;
+            return (numCharacters >= settings.minCharacters);
+          }
+        },
+
+        read: {
+          cache: function(name) {
+            var
+              cache = $module.data('cache')
+            ;
+            return (settings.cache && (typeof cache == 'object') && (cache[name] !== undefined) )
+              ? cache[name]
+              : false
+            ;
+          }
+        },
+
+        write: {
+          cache: function(name, value) {
+            var
+              cache = ($module.data('cache') !== undefined)
+                ? $module.data('cache')
+                : {}
+            ;
+            cache[name] = value;
+            $module
+              .data('cache', cache)
+            ;
+          }
+        },
+
+        addResults: function(html) {
+          if(settings.onResultsAdd == 'default' || settings.onResultsAdd.call($results, html) == 'default') {
+            $results
+              .html(html)
+            ;
+          }
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
           module.showResults();
         },
 
         showResults: function() {
+<<<<<<< HEAD
           if( !module.is.visible() && module.is.focused() && !module.is.empty() ) {
             if( module.can.transition() ) {
+=======
+          if( ($results.filter(':visible').length === 0) && ($prompt.filter(':focus').length > 0) && $results.html() !== '') {
+            if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported') && !$results.transition('is inward')) {
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
               module.debug('Showing results with css animations');
               $results
                 .transition({
@@ -577,6 +779,7 @@ module.exports = function(parameters) {
             }
             else {
               module.debug('Showing results with javascript');
+<<<<<<< HEAD
               $results
                 .stop()
                 .fadeIn(settings.duration, settings.easing)
@@ -627,6 +830,57 @@ module.exports = function(parameters) {
             }
             if($.isFunction(template)) {
               html = template(response);
+=======
+              $results
+                .stop()
+                .fadeIn(settings.duration, settings.easing)
+              ;
+            }
+            settings.onResultsOpen.call($results);
+          }
+        },
+        hideResults: function() {
+          if($results.filter(':visible').length > 0) {
+            if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported') && !$results.transition('is outward')) {
+              module.debug('Hiding results with css animations');
+              $results
+                .transition({
+                  animation  : settings.transition + ' out',
+                  duration   : settings.duration,
+                  queue      : true
+                })
+              ;
+            }
+            else {
+              module.debug('Hiding results with javascript');
+              $results
+                .stop()
+                .fadeIn(settings.duration, settings.easing)
+              ;
+            }
+            settings.onResultsClose.call($results);
+          }
+        },
+
+        generateResults: function(response) {
+          module.debug('Generating html from response', response);
+          var
+            template = settings.templates[settings.type],
+            html     = ''
+          ;
+          if(($.isPlainObject(response.results) && !$.isEmptyObject(response.results)) || ($.isArray(response.results) && response.results.length > 0) ) {
+            if(settings.maxResults > 0) {
+              response.results = $.isArray(response.results)
+                ? response.results.slice(0, settings.maxResults)
+                : response.results
+              ;
+            }
+            if($.isFunction(template)) {
+              html = template(response);
+            }
+            else {
+              module.error(error.noTemplate, false);
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
             }
             else {
               module.error(error.noTemplate, false);
@@ -635,6 +889,12 @@ module.exports = function(parameters) {
           else {
             html = module.displayMessage(error.noResults, 'empty');
           }
+<<<<<<< HEAD
+=======
+          else {
+            html = module.displayMessage(error.noResults, 'empty');
+          }
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
           settings.onResults.call(element, response);
           return html;
         },
@@ -833,11 +1093,18 @@ module.exports.settings = {
   verbose        : true,
   performance    : true,
 
+<<<<<<< HEAD
   type           : 'standard',
   minCharacters  : 1,
 
   // api config
   apiSettings    : false,
+=======
+  // api config
+  apiSettings    : false,
+  type           : 'standard',
+  minCharacters  : 1,
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
 
   source         : false,
   searchFields   : [
@@ -848,13 +1115,18 @@ module.exports.settings = {
 
   automatic      : 'true',
   hideDelay      : 0,
+<<<<<<< HEAD
   searchDelay    : 100,
+=======
+  searchDelay    : 300,
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
   maxResults     : 7,
   cache          : true,
 
   transition     : 'scale',
   duration       : 300,
   easing         : 'easeOutExpo',
+<<<<<<< HEAD
 
   onSelect       : false,
   onResultsAdd   : false,
@@ -862,6 +1134,16 @@ module.exports.settings = {
   onSearchQuery  : function(){},
   onResults      : function(response){},
 
+=======
+
+  // onSelect default action is defined in module
+  onSelect       : 'default',
+  onResultsAdd   : 'default',
+
+  onSearchQuery  : function(){},
+  onResults      : function(response){},
+
+>>>>>>> 41964f83354f965fce5a3625a264ca3117a1a38a
   onResultsOpen  : function(){},
   onResultsClose : function(){},
 
