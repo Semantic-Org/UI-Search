@@ -5,7 +5,7 @@ var
 Package.describe({
   name    : 'semantic:ui-search',
   summary : 'Semantic UI - Search (official): Single component release of search',
-  version : '1.9.9',
+  version : '1.9.0',
   git     : 'git://github.com/Semantic-Org/UI-Search.git',
 });
 
