@@ -305,12 +305,12 @@ module.exports = function(parameters) {
             var
               result = false
             ;
-            value = value || module.get.value();
+            value   = value   || module.get.value();
             results = results || module.get.results();
             if(settings.type === 'category') {
-              module.debug('Finding result from category results', value);
+              module.debug('Finding result that matches', value);
               $.each(results, function(index, category) {
-                if(category.results !== undefined) {
+                if($.isArray(category.results)) {
                   result = module.search.object(value, category.results)[0];
                   if(result.length > 0) {
                     return true;
@@ -336,6 +336,7 @@ module.exports = function(parameters) {
           value: function(value) {
             module.verbose('Setting search input value', value);
             $prompt.val(value);
+            module.query();
           },
           buttonPressed: function() {
             $searchButton.addClass(className.pressed);
@@ -619,7 +620,9 @@ module.exports = function(parameters) {
           if(isProperObject || isProperArray ) {
             if(settings.maxResults > 0) {
               if(isProperObject) {
-                module.error(error.maxResults);
+                if(settings.type == 'standard') {
+                  module.error(error.maxResults);
+                }
               }
               else {
                 response.results = response.results.slice(0, settings.maxResults);

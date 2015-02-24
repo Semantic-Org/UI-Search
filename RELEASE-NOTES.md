@@ -1,3 +1,7 @@
+### Version 1.10.0 - February 23, 2015
+
+- **Search** - Category search no longer displays unnecessary error message about maxResults
+
 ### UI Changes
 
 - **Dropdown** - `search selection dropdown` will now close the menu when a `dropdown icon` is clicked
