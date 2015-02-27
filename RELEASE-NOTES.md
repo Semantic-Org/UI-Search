@@ -1,3 +1,7 @@
+### Version 1.10.3 - February 27, 2015
+
+- **Search** - Fixes bug in category search causing item selection to sometimes produce a javascript error.
+
 ### Version 1.10.0 - February 23, 2015
 
 - **Search** - Category search no longer displays unnecessary error message about maxResults
