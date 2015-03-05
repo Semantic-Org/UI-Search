@@ -1,3 +1,11 @@
+### Version 1.11.0 - March 3, 2015
+
+- **Dropdown** - Fixes issue where dropdown would not open after restoring previus value on failed `search dropdown` search
+- **Search** - Fix special characters not searching correctly with local search
+- **Search** - Fix a bug with `onSelect` returning `null` when `minCharacters: 0`
+- **Search** - Fix a bug with `onSelect returning `null` when results retrieved from cached API query
+- **Form** - Added `input[type="search"]` styles to `ui form`
+
 ### Version 1.10.3 - February 27, 2015
 
 - **Search** - Fixes bug in category search causing item selection to sometimes produce a javascript error.
