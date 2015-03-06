@@ -1,3 +1,7 @@
+### Version 1.11.2 - March 6, 2015
+
+- **Search** - Search now uses internally [fuzzy search](https://github.com/bevacqua/fuzzysearch) as its new full text search algorithm.
+
 ### Version 1.11.0 - March 3, 2015
 
 - **Dropdown** - Fixes issue where dropdown would not open after restoring previus value on failed `search dropdown` search
