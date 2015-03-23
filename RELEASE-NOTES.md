@@ -1,3 +1,7 @@
+### Version 1.11.5 - March 23, 2015
+
+- **Dropdown** - Fix bug where element will not blur on tab key when search selection and no selection made
+
 ### Version 1.11.2 - March 6, 2015
 
 - **Search** - Search now uses internally [fuzzy search](https://github.com/bevacqua/fuzzysearch) as its new full text search algorithm.
