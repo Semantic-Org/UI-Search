@@ -445,7 +445,7 @@ $.fn.search = function(parameters) {
             source = source || settings.source;
 
             // exit conditions on no source
-            if(source === undefined) {
+            if(source === undefined || source === false) {
               module.error(error.source);
               return [];
             }
