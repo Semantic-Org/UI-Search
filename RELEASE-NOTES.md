@@ -1,3 +1,7 @@
+### Version 2.0.2 - July 7, 2015
+
+- **Dropdown** - Fixed regression in `2.0.1` causing search dropdown not to clear values correctly [#2533](https://github.com/Semantic-Org/Semantic-UI/issues/2533)
+
 ### Version 2.0.0 - June 30, 2015
 
 - **Dropdown** - Added remote API integration with dropdown, to allow `search selection` to query against a remote dataset.
