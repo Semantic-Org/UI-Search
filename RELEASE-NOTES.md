@@ -1,3 +1,15 @@
+### Version 2.1.6 - Nov 6, 2015
+
+- **Checkbox/Dropdown/Search** - Fixed issue where dropdown/checkbox `change` events were not bubbling. (Dispatched events were swapped to use native `document.creatEvent` in `2.1.5` unfortunately the flag to bubble events was mistakenly off.)
+
+### Version 2.1.5 - Nov 1, 2015
+
+- **Checkbox/Dropdown/Search** - Fixed issue where using `.trigger('change')` would not fire native `change` event. Only triggering event handlers attached with jQuery [#3108](https://github.com/Semantic-Org/Semantic-UI/issues/3108)
+- **Dropdown** - Search dropdowns will now correctly filter by current search term on re-focus
+- **Dropdown** - `search dropdown` will now initialize with `autocomplete="off"` to avoid triggering native autocomplete menu
+- **Search** - Fixes `onSearchQuery` not firing when results are cached **Thanks @mnquintana**
+- **Search** - Fixes `url` parameter not working correctly due to typo in source **Thanks @fabienb4**
+
 #### Features
 
 - **Dropdown**  - Dropdown using remote data, can now customize the property names returned by api call using `fields` (similar to search).
