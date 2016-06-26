@@ -1,3 +1,20 @@
+### Version 2.2.0 - June 26, 2016
+
+- **Dropdown** - Dropdown will now automatically focus on `search` inside of a dropdown menu after it is opened.
+- **Dropdown** - Multiple select dropdown now sizes current dropdown input based on rendered width of a hidden element, not using an estimate based on character count. This means search will never break to a second line earlier than would normally fit in current line.
+- **Dropdown** - Added `fullSearchSearch: 'exact'` setting, which requires exact matches for dropdown values [#3085](https://github.com/Semantic-Org/Semantic-UI/issues/3085) [#3994](https://github.com/Semantic-Org/Semantic-UI/issues/3994) **Thanks @ShawnCholeva**
+- **Dropdown** - Added new setting for search selection `hideAdditions` this will remove showing user additions inside the menu, making for a more intuitive adding process. Dropdowns now have a new state `empty` which will format an active dropdown with empty results. [#3791](https://github.com/Semantic-Org/Semantic-UI/issues/3791)
+- **Search** - Added a new option `selectFirstResult`, which defaults to `false`. Will automatically highlight first result on search 
+- **Search** - Search now includes a `showNoResults` setting for determining whether no results messages should be shown 
+- **Dropdown** - `search selection` would not let you move back in an entered search string with left arrow [#3596](https://github.com/Semantic-Org/Semantic-UI/issues/3596) **Thanks @Sanjo**
+- **Form Validation / Dropdown** - Using "enter" key in a `search dropdown` could cause a form to be submitted [#3676](https://github.com/Semantic-Org/Semantic-UI/issues/3676)
+- **Search** - Fixed bug where a previously XHR query could cause the next one to fail depending on the latency of the request [#2779](https://github.com/Semantic-Org/Semantic-UI/issues/2779)
+- **Search** - Fixed an issue where `onResult` returning `false` would not prevent the search menu from hiding. Clicking on an empty results message will also no longer close the search results. [#3856](https://github.com/Semantic-Org/Semantic-UI/issues/3856) [#3870](https://github.com/Semantic-Org/Semantic-UI/issues/3870)
+- **Dropdown** - Dropdown would open when an label delete x was clicked when not using `search selection` [#3789](https://github.com/Semantic-Org/Semantic-UI/issues/3789)
+- **Dropdown** - Search selection would lose search input focus when clicking on a choice [#3790](https://github.com/Semantic-Org/Semantic-UI/issues/3790)
+- **Search** - Added `refresh` behavior for search to refresh selector cache. Cache will automatically refresh after API results received
+- **Search** - Fixed issue where `href` was not pulling correctly on search click when the `result` was an `a` itself. [#3409](https://github.com/Semantic-Org/Semantic-UI/issues/3409)
+
 ### Version 2.1.7 - Dec 19, 2015
 
 - **Search** - Search now correctly hides menu when an error message inside results is clicked. [#3039](https://github.com/Semantic-Org/Semantic-UI/issues/3039)
@@ -55,7 +72,7 @@
 - **Search** - Search will no longer incorrectly produce an error when API settings are passed through metadata
 - **Search** - Fixed `category search` not applying active styles correctly to category names
 - **Search** - Fixed `onSelect` not returning the correct value when using `type: category`
-- **Search** - Fixed `onSelect` returning the first term that matches the beginining of the selected value not the exact value.
+- **Search** - Fixed `onSelect` returning the first term that matches the beginning of the selected value not the exact value.
 - **Search** - Fix `loading search` with an `icon button` causing double loaders.
 - **Search** - `searchFields` setting now correctly replaces default fields instead of adding the user fields to defaults
 - **Search** - Calls to `set value` or `query` now obey `minCharacterLength`
@@ -72,7 +89,7 @@
 
 ### Version 1.11.0 - March 3, 2015
 
-- **Dropdown** - Fixes issue where dropdown would not open after restoring previus value on failed `search dropdown` search
+- **Dropdown** - Fixes issue where dropdown would not open after restoring previous value on failed `search dropdown` search
 - **Dropdown** - Fixes issue where dropdown would not open after restoring previous value on failed `search dropdown` search
 - **Search** - Fix special characters not searching correctly with local search
 - **Search** - Fix a bug with `onSelect` returning `null` when `minCharacters: 0`
