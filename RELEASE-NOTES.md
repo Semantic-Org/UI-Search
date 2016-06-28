@@ -4,8 +4,8 @@
 - **Dropdown** - Multiple select dropdown now sizes current dropdown input based on rendered width of a hidden element, not using an estimate based on character count. This means search will never break to a second line earlier than would normally fit in current line.
 - **Dropdown** - Added `fullSearchSearch: 'exact'` setting, which requires exact matches for dropdown values [#3085](https://github.com/Semantic-Org/Semantic-UI/issues/3085) [#3994](https://github.com/Semantic-Org/Semantic-UI/issues/3994) **Thanks @ShawnCholeva**
 - **Dropdown** - Added new setting for search selection `hideAdditions` this will remove showing user additions inside the menu, making for a more intuitive adding process. Dropdowns now have a new state `empty` which will format an active dropdown with empty results. [#3791](https://github.com/Semantic-Org/Semantic-UI/issues/3791)
-- **Search** - Added a new option `selectFirstResult`, which defaults to `false`. Will automatically highlight first result on search 
-- **Search** - Search now includes a `showNoResults` setting for determining whether no results messages should be shown 
+- **Search** - Added a new option `selectFirstResult`, which defaults to `false`. Will automatically highlight first result on search
+- **Search** - Search now includes a `showNoResults` setting for determining whether no results messages should be shown
 - **Dropdown** - `search selection` would not let you move back in an entered search string with left arrow [#3596](https://github.com/Semantic-Org/Semantic-UI/issues/3596) **Thanks @Sanjo**
 - **Form Validation / Dropdown** - Using "enter" key in a `search dropdown` could cause a form to be submitted [#3676](https://github.com/Semantic-Org/Semantic-UI/issues/3676)
 - **Search** - Fixed bug where a previously XHR query could cause the next one to fail depending on the latency of the request [#2779](https://github.com/Semantic-Org/Semantic-UI/issues/2779)
