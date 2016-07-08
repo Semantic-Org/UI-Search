@@ -1,3 +1,7 @@
+### Version 2.2.2 - July 07, 2016
+
+- **Dropdown** - Fixed "pointer" cursor appearing in hitbox above search input in `search selection`, now all input area will appear with "text" input cursor
+
 ### Version 2.2.0 - June 26, 2016
 
 - **Dropdown** - Dropdown will now automatically focus on `search` inside of a dropdown menu after it is opened.
