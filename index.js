@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.2 - Search
+ * # Semantic UI 2.2.3 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -395,10 +395,10 @@ module.exports = function(parameters) {
         get: {
           inputEvent: function() {
             var
-              prompt = $prompt[0],
-              inputEvent   = (prompt !== undefined && prompt.oninput !== undefined)
+              prompt     = $prompt[0],
+              inputEvent = (prompt != undefined && prompt.oninput != undefined)
                 ? 'input'
-                : (prompt !== undefined && prompt.onpropertychange !== undefined)
+                : (prompt != undefined && prompt.onpropertychange != undefined)
                   ? 'propertychange'
                   : 'keyup'
             ;
