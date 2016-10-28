@@ -1,3 +1,12 @@
+### Version 2.2.5 - October, 27, 2016
+
+- **Search** - Fixed issue where pressing "up" key when no results selected would cause bottom result to be selected
+- **Search** - Fixed issue where input may attempt to refocus when search element is immediately removed from browser's DOM after a result is clicked.
+
+### Version 2.2.4 - August 25, 2016
+
+- **Search** - Fixed issue where keyboard navigation for search was broken in `2.2.3` due to regression [#4469](https://github.com/Semantic-Org/Semantic-UI/issues/4469)
+
 ### Version 2.2.3 - August 21, 2016
 
 - **Dropdown** - Using `search selection` with `selectOnKeydown` will now highlight the partial search matching the currently keyboard selected value
