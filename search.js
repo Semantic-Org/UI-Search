@@ -1282,7 +1282,7 @@ $.fn.search.settings = {
         if(type == 'empty') {
           html += ''
             + '<div class="header">No Results</div class="header">'
-            + '<div class="description">' + message + '</div class="description">'
+            + '<div class="description">' + message + '</div>'
           ;
         }
         else {
