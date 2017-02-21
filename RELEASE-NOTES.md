@@ -1,3 +1,13 @@
+#### Dropdown
+
+- **Dropdown** - Dropdown using search input inside of menu are now tabbable [#4490](https://github.com/Semantic-Org/Semantic-UI/pull/4490)
+- **Search** - Fixes issue where empty results message can still appear when using setting `showNoResults: false` [#4616](https://github.com/Semantic-Org/Semantic-UI/pull/4616)
+- **Search** - Added new parameter `callback` to behaviors `query`, `show results`, `hide results`, and `search remote` to allow a function to be called after completion.
+- **Search** - `esc` key now hides results and prevents them from being displayed again until form field is blurred
+- **Dropdown/Search/Checkbox** - Removes use of deprecated `dispatchEvent` DOM APIs for generating simulated events
+- **Dropdown** - Fixed issue where using `fullTextSearch: 'exact'` would still fuzzy search on value **Thanks @ rminnett** [#4651](https://github.com/Semantic-Org/Semantic-UI/pull/4651) [#3424](https://github.com/Semantic-Org/Semantic-UI/pull/3424)
+- **Input/Dropdown** - Fixed rounding error causing vertical alignment of `dropdown`, `search`, `input` to sometimes appear off by 1 pixel [#4279](https://github.com/Semantic-Org/Semantic-UI/pull/4279)
+
 ### Version 2.2.5 - October, 27, 2016
 
 - **Search** - Fixed issue where pressing "up" key when no results selected would cause bottom result to be selected
