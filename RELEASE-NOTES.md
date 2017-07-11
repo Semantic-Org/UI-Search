@@ -1,3 +1,9 @@
+### Version 2.2.11 - July 11, 2017
+
+- **Dropdown** - Fixed issue where using `down` key to re-open dropdown when using `search selection dropdown` would start at the top element instead of jumping to selected element [#4506](https://github.com/Semantic-Org/Semantic-UI/issues/4506)
+- **Dropdown** - Fixed issue where `search selection dropdown` would reset list to top after selection when re-opening dropdown [#4506](https://github.com/Semantic-Org/Semantic-UI/issues/4506)
+- **Search** - Fixed issue where `searchDelay` could cause results to appear after search had lost focus.
+
 ### Version 2.2.10 - March 28, 2017
 
 - **Dropdown** - Fix search input inside dropdown menu causing dropdown to close before selection when selecting an item #5113
