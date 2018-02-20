@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.14 - Search
+ * # Semantic UI 2.3.0 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -71,6 +71,7 @@ module.exports = function(parameters) {
 
         initialize: function() {
           module.verbose('Initializing module');
+          module.get.settings();
           module.determine.searchFields();
           module.bind.events();
           module.set.type();
@@ -403,6 +404,12 @@ module.exports = function(parameters) {
         },
 
         get: {
+          settings: function() {
+            if($.isPlainObject(parameters) && parameters.searchFullText) {
+              settings.fullTextSearch = parameters.searchFullText;
+              module.error(settings.error.oldSearchSyntax, element);
+            }
+          },
           inputEvent: function() {
             var
               prompt = $prompt[0],
@@ -546,8 +553,14 @@ module.exports = function(parameters) {
             ;
             module.set.loading();
             module.save.results(results);
-            module.debug('Returned local search results', results);
-
+            module.debug('Returned full local search results', results);
+            if(settings.maxResults > 0) {
+              module.debug('Using specified max results', results);
+              results = results.slice(0, settings.maxResults);
+            }
+            if(settings.type == 'category') {
+              results = module.create.categoryResults(results);
+            }
             searchHTML = module.generateResults({
               results: results
             });
@@ -575,6 +588,7 @@ module.exports = function(parameters) {
           object: function(searchTerm, source, searchFields) {
             var
               results      = [],
+              exactResults = [],
               fuzzyResults = [],
               searchExp    = searchTerm.toString().replace(regExp.escape, '\\$&'),
               matchRegExp  = new RegExp(regExp.beginsWith + searchExp, 'i'),
@@ -606,7 +620,6 @@ module.exports = function(parameters) {
               module.error(error.source);
               return [];
             }
-
             // iterate through search fields looking for matches
             $.each(searchFields, function(index, field) {
               $.each(source, function(label, content) {
@@ -618,17 +631,30 @@ module.exports = function(parameters) {
                     // content starts with value (first in results)
                     addResult(results, content);
                   }
-                  else if(settings.searchFullText && module.fuzzySearch(searchTerm, content[field]) ) {
+                  else if(settings.fullTextSearch === 'exact' && module.exactSearch(searchTerm, content[field]) ) {
+                    // content fuzzy matches (last in results)
+                    addResult(exactResults, content);
+                  }
+                  else if(settings.fullTextSearch == true && module.fuzzySearch(searchTerm, content[field]) ) {
                     // content fuzzy matches (last in results)
                     addResult(fuzzyResults, content);
                   }
                 }
               });
             });
-            return $.merge(results, fuzzyResults);
+            $.merge(exactResults, fuzzyResults)
+            $.merge(results, exactResults);
+            return results;
           }
         },
-
+        exactSearch: function (query, term) {
+          query = query.toLowerCase();
+          term  = term.toLowerCase();
+          if(term.indexOf(query) > -1) {
+             return true;
+          }
+          return false;
+        },
         fuzzySearch: function(query, term) {
           var
             termLength  = term.length,
@@ -740,6 +766,27 @@ module.exports = function(parameters) {
         },
 
         create: {
+          categoryResults: function(results) {
+            var
+              categoryResults = {}
+            ;
+            $.each(results, function(index, result) {
+              if(!result.category) {
+                return;
+              }
+              if(categoryResults[result.category] === undefined) {
+                module.verbose('Creating new category of results', result.category);
+                categoryResults[result.category] = {
+                  name    : result.category,
+                  results : [result]
+                }
+              }
+              else {
+                categoryResults[result.category].results.push(result);
+              }
+            });
+            return categoryResults;
+          },
           id: function(resultIndex, categoryIndex) {
             var
               resultID      = (resultIndex + 1), // not zero indexed
@@ -777,7 +824,10 @@ module.exports = function(parameters) {
               $selectedResult = (categoryIndex !== undefined)
                 ? $results
                     .children().eq(categoryIndex)
-                      .children(selector.result).eq(resultIndex)
+                      .children(selector.results)
+                        .first()
+                        .children(selector.result)
+                          .eq(resultIndex)
                 : $results
                     .children(selector.result).eq(resultIndex)
             ;
@@ -1198,8 +1248,8 @@ _module.exports.settings = {
   // field to display in standard results template
   displayField   : '',
 
-  // whether to include fuzzy results in local search
-  searchFullText : true,
+  // search anywhere in value (set to 'exact' to require exact matches
+  fullTextSearch : 'exact',
 
   // whether to add events to prompt automatically
   automatic      : true,
@@ -1210,7 +1260,7 @@ _module.exports.settings = {
   // delay before searching
   searchDelay    : 200,
 
-  // maximum results returned from local
+  // maximum results returned from search
   maxResults     : 7,
 
   // whether to store lookups in local cache
@@ -1246,14 +1296,15 @@ _module.exports.settings = {
   },
 
   error : {
-    source      : 'Cannot search. No source used, and Semantic API module was not included',
-    noResults   : 'Your search returned no results',
-    logging     : 'Error in debug logging, exiting.',
-    noEndpoint  : 'No search endpoint was specified',
-    noTemplate  : 'A valid template name was not specified.',
-    serverError : 'There was an issue querying the server.',
-    maxResults  : 'Results must be an array to use maxResults setting',
-    method      : 'The method you called is not defined.'
+    source          : 'Cannot search. No source used, and Semantic API module was not included',
+    noResults       : 'Your search returned no results',
+    logging         : 'Error in debug logging, exiting.',
+    noEndpoint      : 'No search endpoint was specified',
+    noTemplate      : 'A valid template name was not specified.',
+    oldSearchSyntax : 'searchFullText setting has been renamed fullTextSearch for consistency, please adjust your settings.',
+    serverError     : 'There was an issue querying the server.',
+    maxResults      : 'Results must be an array to use maxResults setting',
+    method          : 'The method you called is not defined.'
   },
 
   metadata: {
@@ -1355,6 +1406,7 @@ _module.exports.settings = {
             }
 
             // each item inside category
+            html += '<div class="results">';
             $.each(category.results, function(index, result) {
               if(result[fields.url]) {
                 html  += '<a class="result" href="' + result[fields.url] + '">';
@@ -1384,6 +1436,7 @@ _module.exports.settings = {
               ;
               html += '</a>';
             });
+            html += '</div>';
             html  += ''
               + '</div>'
             ;

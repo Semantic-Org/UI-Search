@@ -1,3 +1,15 @@
+### Version 2.3.0 - Feb 19, 2018
+
+- **Search** - Category search can now work with local search by adding a `category` property to any result and specifying `type: 'category'`
+
+  $('.ui.search')
+    .search({
+
+- **Search** - Category results now has `exact` setting matching dropdown for `fullTextSearch` preventing fuzzy search
+- **Search** - Category results will now responsively adjust `title` row if titles are long instead of forcing a title width
+- **Search** - Search now has responsive styles for mobile to prevent results being large than page width.
+- **Icons** - Icon documentation now has a search that will copy the relevent icon html to clipboard
+
 ### Version 2.2.11 - July 11, 2017
 
 - **Dropdown** - Fixed issue where using `down` key to re-open dropdown when using `search selection dropdown` would start at the top element instead of jumping to selected element [#4506](https://github.com/Semantic-Org/Semantic-UI/issues/4506)
