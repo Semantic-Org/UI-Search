@@ -1,4 +1,9 @@
-### Version 2.3.0 - Feb 19, 2018
+### Version 2.3.1 - Mar 19, 2018
+
+- **Search** - Fixes using category search with `fullTextSearch: 'exact'` **@Thanks @prudho** returning duplicate results [#6223](https://github.com/Semantic-Org/Semantic-UI/issues/6223) [#6221](https://github.com/Semantic-Org/Semantic-UI/issues/6221)
+- **Search** - Adds disabled variation **Thanks @prudho** [#6225](https://github.com/Semantic-Org/Semantic-UI/issues/6225)
+
+### Version 2.3.0 - Feb 20, 2018
 
 - **Search** - Category search can now work with local search by adding a `category` property to any result and specifying `type: 'category'`
 
