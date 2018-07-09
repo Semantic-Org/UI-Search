@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.3.2 - Search
+ * # Semantic UI 2.3.3 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -338,7 +338,7 @@ module.exports = function(parameters) {
               apiSettings = {
                 debug             : settings.debug,
                 on                : false,
-                cache             : true,
+                cache             : settings.cache,
                 action            : 'search',
                 urlData           : {
                   query : searchTerm

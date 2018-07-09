@@ -1,3 +1,7 @@
+### Version 2.3.3 - June 18, 2018
+
+- **Search** - Passing in `cache: false` will now affect default settings for `apiSettings` when using a remote endpoint. Previously you would also have to pass in `apiSettings: { cache: false}` as well
+
 ### Version 2.3.1 - Mar 18, 2018
 
 - **Search** - Fixes using category search with `fullTextSearch: 'exact'` **@Thanks @prudho** returning duplicate results [#6223](https://github.com/Semantic-Org/Semantic-UI/issues/6223) [#6221](https://github.com/Semantic-Org/Semantic-UI/issues/6221)
