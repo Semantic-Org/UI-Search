@@ -1378,8 +1378,8 @@ _module.exports.settings = {
         // message type
         if(type == 'empty') {
           html += ''
-            + '<div class="header">No Results</div class="header">'
-            + '<div class="description">' + message + '</div class="description">'
+            + '<div class="header">No Results</div>'
+            + '<div class="description">' + message + '</div>'
           ;
         }
         else {
